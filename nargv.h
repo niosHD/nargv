@@ -1,7 +1,8 @@
 #include <stddef.h>
 
 typedef struct NARGV {
-    char **argv, *data, *error_message;
+    char **argv, *data;
+    const char *error_message;
     int argc, data_length, error_index, error_code;
 } NARGV;
 

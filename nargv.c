@@ -21,7 +21,8 @@
 const char *NARGV_IFS = " \t\n";
 
 typedef struct NARGV {
-    char **argv, *data, *error_message;
+    char **argv, *data;
+    const char *error_message;
     int argc, data_length, error_index, error_code;
 } NARGV;
 
@@ -51,7 +52,7 @@ int nargv_field_seperator(char seperator) {
 
 NARGV *nargv_parse(const char *input) {
 
-    NARGV *nvp = calloc(1, sizeof(NARGV));
+    NARGV *nvp = (NARGV*) calloc(1, sizeof(NARGV));
 
     if (! input) {
         nvp->error_code = 1;
@@ -160,8 +161,8 @@ NARGV *nargv_parse(const char *input) {
     }
 
     // +1 for extra NULL pointer required by execv() and friends
-    nvp->argv = calloc(nvp->argc + 1, sizeof(char *));
-    nvp->data = calloc(nvp->data_length, 1);
+    nvp->argv = (char**) calloc(nvp->argc + 1, sizeof(char *));
+    nvp->data = (char*) calloc(nvp->data_length, 1);
 
     // SECOND PASS
     composing_argument = 0;
