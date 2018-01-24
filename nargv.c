@@ -15,16 +15,12 @@
 
 //============================================================================
 
+#include "nargv.h"
+
 #include <stddef.h>
 #include <stdlib.h>
 
 const char *NARGV_IFS = " \t\n";
-
-typedef struct NARGV {
-    char **argv, *data;
-    const char *error_message;
-    int argc, data_length, error_index, error_code;
-} NARGV;
 
 void nargv_free(NARGV* props) {
     free(props->data); free(props->argv);
